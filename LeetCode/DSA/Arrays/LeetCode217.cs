@@ -2,7 +2,7 @@
 
 namespace LeetCode
 {
-    public class DSA
+    public class LeetCode217
     {
     }
 }
