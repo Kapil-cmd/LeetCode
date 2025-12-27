@@ -1,0 +1,87 @@
+
+        Console.WriteLine("Type song name (without extension):");
+        string songName = Console.ReadLine();
+
+        string audioFile = $@"D:\React\Trash_Finder\LeetCode\LeetCode\song.mp3";
+        string lyricsFile = $@"D:\React\Trash_Finder\LeetCode\LeetCode\lyrics.txt";
+
+        if (!File.Exists(audioFile) || !File.Exists(lyricsFile))
+        {
+            Console.WriteLine("Audio or lyrics file not found!");
+            return;
+        }
+
+        var lyrics = LoadLyrics(lyricsFile);
+
+        var audioThread = new Thread(() => PlaySong(audioFile));
+        audioThread.Start();
+
+        Thread.Sleep(6000);
+
+        var startTime = DateTime.Now;
+
+        for (int i = 0; i < lyrics.Count; i++)
+        {
+            var line = lyrics[i];
+            var words = line.text.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            double nextTimestamp = (i < lyrics.Count - 1) ? lyrics[i + 1].timestamp : line.timestamp + 2.0;
+            double lineDuration = nextTimestamp - line.timestamp;
+            double wordDuration = lineDuration / words.Length;
+
+            double wordStartTime = line.timestamp;
+
+            foreach (var word in words)
+            {
+                while ((DateTime.Now - startTime).TotalSeconds < wordStartTime)
+                    Thread.Sleep(10);
+
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Write(word + " ");
+                Console.ResetColor();
+
+                wordStartTime += wordDuration;
+
+                Thread.Sleep(1000);
+            }
+            Console.WriteLine();
+        }
+
+        audioThread.Join();
+        Console.WriteLine("\nSong finished.");
+    }
+
+    static List<(double timestamp, string text)> LoadLyrics(string path)
+    {
+        var list = new List<(double timestamp, string text)>();
+        var lines = File.ReadAllLines(path);
+
+        foreach (var line in lines)
+        {
+            var match = Regex.Match(line, @"\[(\d{2}):(\d{2})\.(\d{2})\](.*)");
+            if (match.Success)
+            {
+                int min = int.Parse(match.Groups[1].Value);
+                int sec = int.Parse(match.Groups[2].Value);
+                int ms = int.Parse(match.Groups[3].Value);
+                string text = match.Groups[4].Value.Trim();
+
+                double timestamp = min * 60 + sec + ms / 100.0;
+                list.Add((timestamp, text));
+            }
+        }
+
+        return list;
+    }
+
+    static void PlaySong(string path)
+    {
+        using (var audioFile = new AudioFileReader(path))
+        using (var outputDevice = new WaveOutEvent())
+        {
+            outputDevice.Init(audioFile);
+            outputDevice.Play();
+            while (outputDevice.PlaybackState == PlaybackState.Playing)
+                Thread.Sleep(100);
+        }
+    
