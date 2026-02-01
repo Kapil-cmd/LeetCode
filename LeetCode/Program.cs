@@ -12,10 +12,9 @@ class Program
 
     static void Main()
     {
-        int[] num = { 1, 1, 1, 2, 2, 3 };
-        int k = 2;
-        var result = new LeetCode347();
-        result.TopKFrequent(num,k);
+        int[] nums = { 1,2,0 };
+        var result = new LeetCode41();
+        result.FirstMissingPositive(nums);
         Console.WriteLine("The output is:",result);   
     }
    
