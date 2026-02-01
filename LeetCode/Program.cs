@@ -4,6 +4,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using LeetCode;
+using NAudio.Dsp;
 using NAudio.Wave;
 
 class Program
@@ -11,9 +12,11 @@ class Program
 
     static void Main()
     {
-        LeetCode219 leetCode219 = new LeetCode219();
-        var array = new int[] { 1, 2, 3, 1 };
-        leetCode219.ContainsNearbyDuplicate(array, 3);
+        int[] num = { 1, 1, 1, 2, 2, 3 };
+        int k = 2;
+        var result = new LeetCode347();
+        result.TopKFrequent(num,k);
+        Console.WriteLine("The output is:",result);   
     }
    
 
