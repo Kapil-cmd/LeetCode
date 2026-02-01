@@ -22,7 +22,7 @@ namespace LeetCode
                 if (a == n)
                     nums[0] = -Math.Abs(nums[0]);
                 else
-                    nums[a] = -Math.Abs(nums[a]);
+                    nums[a] = -Math.Abs(nums[a]); 
             }
 
             for (int i = 1; i < n; i++)
