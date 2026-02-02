@@ -12,10 +12,11 @@ class Program
 
     static void Main()
     {
-        int[] nums = { 1,2,0 };
-        var result = new LeetCode41();
-        result.FirstMissingPositive(nums);
-        Console.WriteLine("The output is:",result);   
+        string s1 = "ab";
+        string s2 = "eidbaooo";
+        var leet = new LeetCode567();
+        var ans = leet.CheckInclusion(s1,s2);
+        Console.WriteLine(ans);
     }
    
 
