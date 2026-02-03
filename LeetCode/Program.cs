@@ -12,10 +12,10 @@ class Program
 
     static void Main()
     {
-        string s1 = "ab";
-        string s2 = "eidbaooo";
-        var leet = new LeetCode567();
-        var ans = leet.CheckInclusion(s1,s2);
+        int[] nums = [1, 3, -1, -3, 5, 3, 6, 7];
+        int k = 3;
+        var leet = new LeetCode239();
+        var ans = leet.MaxSlidingWindow(nums,k);
         Console.WriteLine(ans);
     }
    
