@@ -13,9 +13,9 @@ class Program
     static void Main()
     {
         int[] sum = [0, 1, 1, 1, 1, 1, 0, 0, 0];
-        var leet = new LeetCode525(); // default constructor
-        leet.FindMaxLength(sum);            // call a method to pass your array, if one exists
-        Console.WriteLine(leet.FindMaxLength(sum)); // call a method to get the result
+        var leet = new LeetCode525(); 
+        leet.FindMaxLength(sum);      
+        Console.WriteLine(leet.FindMaxLength(sum)); 
     }
    
 
